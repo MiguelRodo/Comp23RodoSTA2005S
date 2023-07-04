@@ -1,5 +1,30 @@
 # Compendium of ACS CyTOF T Cells
 
+## Instructions for setting up
+
+- **Open in GitHub online dev environment**
+  - Run `github.dev/<organisation_name>/<repo_name>`
+- **Set R version**
+  - Press `Ctrl + Shift + F` to open text search through entire repo
+  - Search for `430` 
+  - Change to desired R version, wherever it appears
+   - Options: `363`, `413`, `423` and `430`
+  - Set R version in `devcontainer.json`:
+    - Open `.devcontainer/devcontainer.json`
+    - Under `features/"ghcr.io/rocker-org/devcontainer-features/r-rig:1"/version`, change the version to desired version
+  - Commit the changes to Git
+- **Change the following references**:
+  - Use `Ctrl + Shift + F` to open text search through entire repo again:
+    - Replace `Comp<old_comp>` with `Comp<new_comp>`
+- **Update repos to clone**:
+  - In the file `repos-to-clone.list`, add GitHub repos to clone (one per line, in `<org_name>/<repo_name>` format)
+  - Add all these repos to the VS Code workspace file `EntireProject.code-workspace`
+    - Use the same format as is already there, just copying down
+- **Create singularity file**
+  - Open in a GitHub Codespace, GitPod workspace or Linux locally
+  - Run 
+
+
 ## Instructions for running
 
 ### Initial configuration
@@ -42,12 +67,12 @@ First, you need to create the token (Getting secret) and then you need to make i
 
 ### GitPod
 
-- Open `https://gitpod.io/#https://github.com/SATVILab/CompACSCyTOFTCells`
+- Open `https://gitpod.io/#https://github.com/SATVILab/Comp23RodoSTA2005S`
   - Wait for set-up to complete (including post-image creation commands)
 - Open a terminal:
   - *Authenticate to GitHub*: Run `gh auth login`
     - Follow instructions
-  - *Download container image*: Run `mkdir -p sif && gh release download --repo SATVILab/CompACSCyTOFTCells r430 --pattern sif --dir sif --skip-existing`
+  - *Download container image*: Run `mkdir -p sif && gh release download --repo SATVILab/Comp23RodoSTA2005S r430 --pattern sif --dir sif --skip-existing`
   - *Open VS Code using a remote tunnel into container*: Run `apptainer exec sif/r430.sif code tunnel --accept-server-license-terms`
     - Follow instructions, up until you then have a browser tab open to a VS Code instance
 - Switch to VS Code instance:
@@ -62,7 +87,7 @@ First, you need to create the token (Getting secret) and then you need to make i
 ### GitHub Codespaces
 
 - *Open Codespace*:
-  - Go to `https://github.com/SATVILab/CompACSCyTOFTCells`
+  - Go to `https://github.com/SATVILab/Comp23RodoSTA2005S`
   - Click green `Code` button
   - Click green `Create codespace on main` button
   - Wait for set-up
@@ -85,12 +110,12 @@ First, you need to create the token (Getting secret) and then you need to make i
   - Navigate to directory where you want to clone this repo and all other project repos.
     - Note that there are many project repos, so it would be good to do this in its own directory.
       - We create `ProjectACSCyTOFTCells` folder for this purpose.
-    - Inside that folder, run `git clone https://github.com/SATVILab/CompACSCyTOFTCells.git`
+    - Inside that folder, run `git clone https://github.com/SATVILab/Comp23RodoSTA2005S.git`
 - *Open terminal inside repo*:
-  - Run `cd <path/to/CompACSCyTOFTCells>`
+  - Run `cd <path/to/Comp23RodoSTA2005S>`
 - *Download the container image*:
   - Using a terminal: Run `.src/hpc/download-apptainer.sh`.
-  - Using GUI: Go to `https://github.com/SATVILab/CompACSCyTOFTCells/releases/tag/r430` and download `r430.sif` to `sif` folder (run `mkdir -p sif` to create folder first).
+  - Using GUI: Go to `https://github.com/SATVILab/Comp23RodoSTA2005S/releases/tag/r430` and download `r430.sif` to `sif` folder (run `mkdir -p sif` to create folder first).
 - *Open VS Code using a remote tunnel into container*: Run `apptainer exec sif/r430.sif code tunnel --accept-server-license-terms`
     - Follow instructions, up until you then have a browser tab open to a VS Code instance
 - Switch to VS Code instance:
@@ -113,15 +138,15 @@ In this case, the instructions are basically the same as for the HPC.
   - Navigate to directory where you want to clone this repo and all other project repos.
     - Note that there are many project repos, so it would be good to do this in its own directory.
       - We create `ProjectACSCyTOFTCells` folder for this purpose.
-    - Inside that folder, run `git clone https://github.com/SATVILab/CompACSCyTOFTCells.git`
+    - Inside that folder, run `git clone https://github.com/SATVILab/Comp23RodoSTA2005S.git`
 - *Ensure that `apptainer` is installed*
   - Run `apptainer --version` to check
     - If it's not, then you can run `./src/hpc/install-apptainer.sh` to install apptainer.
 - *Open terminal inside repo*:
-  - Run `cd <path/to/CompACSCyTOFTCells>`
+  - Run `cd <path/to/Comp23RodoSTA2005S>`
 - *Download the container image*:
   - Using a terminal: Run `.src/hpc/download-apptainer.sh`.
-  - Using GUI (if terminal doesn't work): Go to `https://github.com/SATVILab/CompACSCyTOFTCells/releases/tag/r430` and download `r430.sif` to `sif` folder (run `mkdir -p sif` to create folder first).
+  - Using GUI (if terminal doesn't work): Go to `https://github.com/SATVILab/Comp23RodoSTA2005S/releases/tag/r430` and download `r430.sif` to `sif` folder (run `mkdir -p sif` to create folder first).
 - *Open VS Code using a remote tunnel into container*: Run `apptainer exec sif/r430.sif code tunnel --accept-server-license-terms`
     - Follow instructions, up until you then have a browser tab open to a VS Code instance
 - Switch to VS Code instance:
