@@ -47,8 +47,8 @@ First, you need to create the token (Getting secret) and then you need to make i
 - Open a terminal:
   - *Authenticate to GitHub*: Run `gh auth login`
     - Follow instructions
-  - *Download container image*: Run `mkdir -p sif && gh release download --repo SATVILab/CompACSCyTOFTCells r423 --pattern sif --dir sif --skip-existing`
-  - *Open VS Code using a remote tunnel into container*: Run `apptainer exec sif/r423.sif code tunnel --accept-server-license-terms`
+  - *Download container image*: Run `mkdir -p sif && gh release download --repo SATVILab/CompACSCyTOFTCells r430 --pattern sif --dir sif --skip-existing`
+  - *Open VS Code using a remote tunnel into container*: Run `apptainer exec sif/r430.sif code tunnel --accept-server-license-terms`
     - Follow instructions, up until you then have a browser tab open to a VS Code instance
 - Switch to VS Code instance:
   - Open a VS Code workspace:
@@ -90,8 +90,8 @@ First, you need to create the token (Getting secret) and then you need to make i
   - Run `cd <path/to/CompACSCyTOFTCells>`
 - *Download the container image*:
   - Using a terminal: Run `.src/hpc/download-apptainer.sh`.
-  - Using GUI: Go to `https://github.com/SATVILab/CompACSCyTOFTCells/releases/tag/r423` and download `r423.sif` to `sif` folder (run `mkdir -p sif` to create folder first).
-- *Open VS Code using a remote tunnel into container*: Run `apptainer exec sif/r423.sif code tunnel --accept-server-license-terms`
+  - Using GUI: Go to `https://github.com/SATVILab/CompACSCyTOFTCells/releases/tag/r430` and download `r430.sif` to `sif` folder (run `mkdir -p sif` to create folder first).
+- *Open VS Code using a remote tunnel into container*: Run `apptainer exec sif/r430.sif code tunnel --accept-server-license-terms`
     - Follow instructions, up until you then have a browser tab open to a VS Code instance
 - Switch to VS Code instance:
   - Open a VS Code workspace:
@@ -121,8 +121,8 @@ In this case, the instructions are basically the same as for the HPC.
   - Run `cd <path/to/CompACSCyTOFTCells>`
 - *Download the container image*:
   - Using a terminal: Run `.src/hpc/download-apptainer.sh`.
-  - Using GUI (if terminal doesn't work): Go to `https://github.com/SATVILab/CompACSCyTOFTCells/releases/tag/r423` and download `r423.sif` to `sif` folder (run `mkdir -p sif` to create folder first).
-- *Open VS Code using a remote tunnel into container*: Run `apptainer exec sif/r423.sif code tunnel --accept-server-license-terms`
+  - Using GUI (if terminal doesn't work): Go to `https://github.com/SATVILab/CompACSCyTOFTCells/releases/tag/r430` and download `r430.sif` to `sif` folder (run `mkdir -p sif` to create folder first).
+- *Open VS Code using a remote tunnel into container*: Run `apptainer exec sif/r430.sif code tunnel --accept-server-license-terms`
     - Follow instructions, up until you then have a browser tab open to a VS Code instance
 - Switch to VS Code instance:
   - Open a VS Code workspace:
