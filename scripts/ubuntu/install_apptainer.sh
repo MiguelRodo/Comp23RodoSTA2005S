@@ -22,7 +22,13 @@ if [ -f /.dockerenv ] | [ -n "$(env | grep -E "^GITPOD|^CODESPACE")" ]; then
   # source: https://carpentries-incubator.github.io/singularity-introduction/07-singularity-images-building/index.html#using-singularity-run-from-within-the-docker-container
   sudo apt-get install -y tzdata
   sudo cp /usr/share/zoneinfo/Europe/London /etc/localtime
-  # mount the workspace directory if it's not already mounted
-  grep -q "bind path = /workspace" /etc/apptainer/apptainer.conf || \
-    sudo sed -i "s|bind path = /etc/hosts|bind path = /etc/hosts\nbind path = /workspace|" /etc/apptainer/apptainer.conf
+  # mount the workspace(s) directory if it's not already mounted
+  # and usig GitPod (workspace) or Codespaces (workspaces)
+  if [ -n "$(env | grep -E "^GITPOD")" ]; then 
+    grep -q "bind path = /workspace" /etc/apptainer/apptainer.conf || \
+      sudo sed -i "s|bind path = /etc/hosts|bind path = /etc/hosts\nbind path = /workspace|" /etc/apptainer/apptainer.conf
+  elif [ -n "$(env | grep -E "^CODESPACE")" ]; then 
+    grep -q "bind path = /workspaces" /etc/apptainer/apptainer.conf || \
+      sudo sed -i "s|bind path = /etc/hosts|bind path = /etc/hosts\nbind path = /workspaces|" /etc/apptainer/apptainer.conf    
+  fi
 fi
