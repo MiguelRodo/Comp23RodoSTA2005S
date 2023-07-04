@@ -1,0 +1,9 @@
+image:
+    file: .gitpod.Dockerfile
+
+tasks:
+  - name: Set-up
+    command: |
+        ./src/all/setup-r-min.sh 
+        ./clone-repos.sh
+        
