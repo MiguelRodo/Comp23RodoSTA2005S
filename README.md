@@ -22,8 +22,8 @@
     - Use the same format as is already there, just copying down
 - **Create singularity file**
   - Open in a GitHub Codespace, GitPod workspace or Linux locally
-  - Run 
-
+  - Run `ubuntu/install_apptainer.sh`
+  - Run `ubuntu/build_and_upload_apptainer.sh`, which builds and uploads the apptainer file
 
 ## Instructions for running
 
@@ -32,14 +32,7 @@
 In all cases, make sure that you have the environment variable `GH_TOKEN` set up to a GitHub token with `repo`, `user` and `workflow` scopes
 from a GitHub account that has access to the following repositories:
 
-- SATVILab/DataTidyACSClinical
-- SATVILab/DataTidyACSCyTOFPreprocess
-- SATVILab/DataTidyACSCyTOFFAUST
-- SATVILab/PipelineDataACSCytokines
-- SATVILab/DataTidyACSCyTOFCytokinesTCells
-- SATVILab/PipelineAnalysisACS
-- SATVILab/AnalysisACSCyTOFTCells
-- SATVILab/ReportACSCyTOFTCells
+- <org_name>/<repo_name>
 
 #### Seting up `GH_TOKEN` environment variable
 
@@ -81,8 +74,6 @@ First, you need to create the token (Getting secret) and then you need to make i
     - Choose `File: Open Workspace from File...`
     - Open workspace with repos of interest:
       - `EntireProject.code-workspace`: Contains all repos
-      - `DataTidy.code-workspace`: Contains data-processing repos
-      - `Analysis.code-workspace`: Contains analysis repos
 
 ### GitHub Codespaces
 
@@ -97,8 +88,6 @@ First, you need to create the token (Getting secret) and then you need to make i
     - Choose `File: Open Workspace from File...`
     - Open workspace with repos of interest:
       - `EntireProject.code-workspace`: Contains all repos
-      - `DataTidy.code-workspace`: Contains data-processing repos
-      - `Analysis.code-workspace`: Contains analysis repos
 
 ### HPC
 
@@ -124,8 +113,6 @@ First, you need to create the token (Getting secret) and then you need to make i
     - Choose `File: Open Workspace from File...`
     - Open workspace with repos of interest:
       - `EntireProject.code-workspace`: Contains all repos
-      - `DataTidy.code-workspace`: Contains data-processing repos
-      - `Analysis.code-workspace`: Contains analysis repos
 
 ### Local (Linux)
 
@@ -155,8 +142,6 @@ In this case, the instructions are basically the same as for the HPC.
     - Choose `File: Open Workspace from File...`
     - Open workspace with repos of interest:
       - `EntireProject.code-workspace`: Contains all repos
-      - `DataTidy.code-workspace`: Contains data-processing repos
-      - `Analysis.code-workspace`: Contains analysis repos
 
 ### Local (other)
 
@@ -170,11 +155,4 @@ So, for this approach:
 
 ```
 git clone https://github.com/SATVILab/DataTidyACSClinical.git
-git clone https://github.com/SATVILab/DataTidyACSCyTOFPreprocess.git
-git clone https://github.com/SATVILab/DataTidyACSCyTOFFAUST.git
-git clone https://github.com/SATVILab/PipelineDataACSCytokines.git
-git clone https://github.com/SATVILab/DataTidyACSCyTOFCytokinesTCells.git
-git clone https://github.com/SATVILab/PipelineAnalysisACS.git
-git clone https://github.com/SATVILab/AnalysisACSCyTOFTCells.git
-git clone https://github.com/SATVILab/ReportACSCyTOFTCells.git
 ```
