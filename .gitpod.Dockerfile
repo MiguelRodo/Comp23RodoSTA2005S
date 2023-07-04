@@ -7,9 +7,9 @@
 # Pull base image.
 FROM gitpod/workspace-full:latest
 
-COPY src/ubuntu /project/src
+COPY scripts/ubuntu /project/scripts
 
-WORKDIR /project/src
+WORKDIR /project/scripts
 
 RUN ./install_apptainer.sh
 RUN ./install_gh.sh

@@ -4,6 +4,6 @@ image:
 tasks:
   - name: Set-up
     command: |
-        ./src/all/setup-r-min.sh 
+        ./scripts/all/setup-r-min.sh 
         ./clone-repos.sh
         
