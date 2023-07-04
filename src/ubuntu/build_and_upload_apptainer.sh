@@ -1,3 +1,3 @@
 #!/bin/bash
-sudo src/docker/ubuntu/build-apptainer.sh \
+sudo src/ubuntu/build_apptainer.sh \
   && src/gh/r430.sh

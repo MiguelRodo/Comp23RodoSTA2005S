@@ -114,7 +114,7 @@ First, you need to create the token (Getting secret) and then you need to make i
 - *Open terminal inside repo*:
   - Run `cd <path/to/Comp23RodoSTA2005S>`
 - *Download the container image*:
-  - Using a terminal: Run `.src/hpc/download-apptainer.sh`.
+  - Using a terminal: Run `.src/hpc/download_apptainer.sh`.
   - Using GUI: Go to `https://github.com/SATVILab/Comp23RodoSTA2005S/releases/tag/r430` and download `r430.sif` to `sif` folder (run `mkdir -p sif` to create folder first).
 - *Open VS Code using a remote tunnel into container*: Run `apptainer exec sif/r430.sif code tunnel --accept-server-license-terms`
     - Follow instructions, up until you then have a browser tab open to a VS Code instance
@@ -141,11 +141,11 @@ In this case, the instructions are basically the same as for the HPC.
     - Inside that folder, run `git clone https://github.com/SATVILab/Comp23RodoSTA2005S.git`
 - *Ensure that `apptainer` is installed*
   - Run `apptainer --version` to check
-    - If it's not, then you can run `./src/hpc/install-apptainer.sh` to install apptainer.
+    - If it's not, then you can run `./src/hpc/install_apptainer.sh` to install apptainer.
 - *Open terminal inside repo*:
   - Run `cd <path/to/Comp23RodoSTA2005S>`
 - *Download the container image*:
-  - Using a terminal: Run `.src/hpc/download-apptainer.sh`.
+  - Using a terminal: Run `.src/hpc/download_apptainer.sh`.
   - Using GUI (if terminal doesn't work): Go to `https://github.com/SATVILab/Comp23RodoSTA2005S/releases/tag/r430` and download `r430.sif` to `sif` folder (run `mkdir -p sif` to create folder first).
 - *Open VS Code using a remote tunnel into container*: Run `apptainer exec sif/r430.sif code tunnel --accept-server-license-terms`
     - Follow instructions, up until you then have a browser tab open to a VS Code instance
