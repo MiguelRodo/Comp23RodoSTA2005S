@@ -27,8 +27,11 @@ if [ -f /.dockerenv ] | [ -n "$(env | grep -E "^GITPOD|^CODESPACE")" ]; then
   sudo cp /usr/share/zoneinfo/Europe/London /etc/localtime
   # mount the workspace(s) directory if it's not already mounted
   # and usig GitPod (workspace) or Codespaces (workspaces)
-  grep -q "bind path = /workspace" /etc/apptainer/apptainer.conf || \
-    sudo sed -i "s|bind path = /etc/hosts|bind path = /etc/hosts\nbind path = /workspace|" /etc/apptainer/apptainer.conf
-  grep -q "bind path = /workspaces" /etc/apptainer/apptainer.conf || \
-    sudo sed -i "s|bind path = /etc/hosts|bind path = /etc/hosts\nbind path = /workspaces|" /etc/apptainer/apptainer.conf    
+  if [ -n "$(env | grep -E "^GITPOD")" ]; then
+    grep -q "bind path = /workspace" /etc/apptainer/apptainer.conf || \
+      sudo sed -i "s|bind path = /etc/hosts|bind path = /etc/hosts\nbind path = /workspace|" /etc/apptainer/apptainer.conf
+  elif  [ -n "$(env | grep -E "^CODESPACE")" ]; then
+    grep -q "bind path = /workspaces" /etc/apptainer/apptainer.conf || \
+      sudo sed -i "s|bind path = /etc/hosts|bind path = /etc/hosts\nbind path = /workspaces|" /etc/apptainer/apptainer.conf  
+  fi   
 fi
