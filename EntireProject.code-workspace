@@ -8,7 +8,12 @@
 		},
 		{
 			"path": "../Pres23RodoSTA2005SIntroduction"
+		},
+		{
+			"path": "../DataTidy23RodoSTA2005S"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"terminal.integrated.shellIntegration.enabled": false
+	}
 }
