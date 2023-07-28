@@ -7,10 +7,13 @@
 			"path": "../Comp23RodoSTA2005S"
 		},
 		{
+			"path": "../DataTidy23RodoSTA2005S"
+		},
+		{
 			"path": "../Pres23RodoSTA2005SIntroduction"
 		},
 		{
-			"path": "../DataTidy23RodoSTA2005S"
+			"path": "../Pres23RodoSTA2005SGLM"
 		}
 	],
 	"settings": {
