@@ -1,9 +1,10 @@
 image:
-  file: Dockerfile
+  file: gitpod.Dockerfile
 
 tasks:
-  - name: Clone repos
-    command: ./clone-repos.sh
+  - name: Clone repos and install tinytex
+    command: ./clone-repos.sh && \
+      quarto install tinytex
 
 vscode:
   extensions:
