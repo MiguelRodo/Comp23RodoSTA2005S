@@ -13,11 +13,11 @@ fi
 
 "$project_root/scripts/ubuntu/install_apptainer.sh" || exit 1
 "$project_root/scripts/ubuntu/install_gh.sh" || exit 1
+"$project_root/scripts/apptainer/ubuntu/R/add_r_libs-select.sh" || exit 1
 
 if [ -n "$(env | grep -E "^GITPOD")" ]; then
   # install tools to run and download containers
   sudo "$project_root/scripts/all/install_r.sh"
-  sudo "$project_root/scripts/all/install_quarto.sh"
 fi
 
 # clone all repos

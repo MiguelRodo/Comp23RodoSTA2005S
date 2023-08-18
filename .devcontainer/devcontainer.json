@@ -5,23 +5,17 @@
  * The "postCreateCommand" property specifies the commands to run after the container is created, which includes setting up R and cloning repositories.
  */
 {
-	"image": "mcr.microsoft.com/devcontainers/universal:2.4-focal",
-	"postCreateCommand": "./scripts/all/post_create_command.sh",
+	"image": "rocker/verse:4.3",
 	"features": {
 		"ghcr.io/rocker-org/devcontainer-features/r-rig:1": {
-			"installDevTools": true,
-			"installREnv": true,
-			"installRMarkdown": true,
+			"installDevTools": false,
+			"installREnv": false,
+			"installRMarkdown": false,
 			"installRadian": true,
-			"installVscDebugger": true,
-			"version": "4.3.0",
-			"pakVersion": "auto",
-			"vscodeRSupport": "full",
-			"pandocVersion": "latest"
-		},
-		"ghcr.io/rocker-org/devcontainer-features/quarto-cli:1": {
-			"installTinyTex": true,
-			"version": "latest"
+			"installVscDebugger": false,
+			"version": "4.3.1",
+			"vscodeRSupport": "full"
 		}
-	}
+	},
+	"postCreateCommand": "./scripts/all/post_create_command.sh"
 }

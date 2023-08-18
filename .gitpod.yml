@@ -1,10 +1,9 @@
-image: gitpod/workspace-base
+image: rocker/verse:4.3
 
 tasks:
   - name: Set-up R, apptainer
     command: |
         ./scripts/all/post_create_command.sh 
-        quarto install tinytex
 
 vscode:
   extensions:

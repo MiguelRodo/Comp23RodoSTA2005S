@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-VERSION=latest
+VERSION=none
 VSCODERSUPPORT=full
 INSTALLDEVTOOLS=true
-INSTALLRENV=true
-INSTALLRMARKDOWN=true
+INSTALLRENV=false
+INSTALLRMARKDOWN=false
 INSTALLRADIAN=true
-INSTALLVSCDEBUGGER=true
+INSTALLVSCDEBUGGER=false
 
 R_VERSION=${VERSION:-"release"}
 PAK_VERSION=${PAKVERSION:-"auto"}
@@ -91,7 +91,7 @@ if [ "${INSTALL_DEVTOOLS}" = "true" ]; then
         libicu-dev \
         zlib1g-dev \
     )
-    R_PACKAGES+=(devtools)
+    # R_PACKAGES+=(devtools)
     if [ "${PANDOC_VERSION}" = "auto" ] && [ ! -x "$(command -v pandoc)" ]; then
         PANDOC_VERSION="latest"
     fi
