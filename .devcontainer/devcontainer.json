@@ -8,5 +8,16 @@
 	"build": {
 		"dockerfile": "../Dockerfile"
 	},
-	"postCreateCommand": "./clone-repos.sh"
+	"postCreateCommand": "./clone-repos.sh",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"GitHub.copilot",
+				"GitHub.copilot-chat",
+				"REditorSupport.r",
+				"sourcegraph.cody-ai",
+				"bierner.markdown-preview-github-styles"
+			]
+		}
+	}
 }

@@ -1,9 +1,9 @@
-image: rocker/verse:4.3
+image:
+  file: Dockerfile
 
 tasks:
-  - name: Set-up R, apptainer
-    command: |
-        ./scripts/all/post_create_command.sh 
+  - name: Clone repos
+    command: ./clone-repos.sh
 
 vscode:
   extensions:
