@@ -13,7 +13,7 @@ fi
 
 "$dir_scripts/ubuntu/install_apptainer.sh" || exit 1
 "$dir_scripts/ubuntu/install_gh.sh" || exit 1
-"$dir_scripts/apptainer/ubuntu/R/add_r_libs-select.sh" || exit 1
+
 
 if [ -n "$(env | grep -E "^GITPOD")" ]; then
   # install tools to run and download containers
