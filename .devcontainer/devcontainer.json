@@ -5,6 +5,7 @@
  * The "postCreateCommand" property specifies the commands to run after the container is created, which includes setting up R and cloning repositories.
  */
 {
-	"name": "rocker/verse:4.3",
-	"dockerFile": "Dockerfile"
+	"build": {
+		"dockerfile": "../Dockerfile"
+	}
 }
