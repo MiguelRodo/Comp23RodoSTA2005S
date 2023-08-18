@@ -1,3 +1,4 @@
+apt-get update -y
 apt-get install -y \
   fonts-roboto \
   libcairo2-dev \
@@ -20,5 +21,6 @@ apt-get install -y \
   libmagick++-dev \
   cmake \
   ghostscript \
-  libtiff-tools
-  
+  libtiff-tools \
+  libpng-dev \
+  gh
