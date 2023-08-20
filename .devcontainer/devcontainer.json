@@ -16,7 +16,10 @@
 				"GitHub.copilot-chat",
 				"REditorSupport.r",
 				"sourcegraph.cody-ai",
-				"bierner.markdown-preview-github-styles"
+				"bierner.markdown-preview-github-styles",
+				"ms-vscode.live-server",
+				"analytic-signal.preview-pdf",
+				"quarto.quarto"
 			]
 		}
 	}
