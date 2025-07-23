@@ -9,7 +9,11 @@ on:
     # To disable (to avoid any auto-runs),
     # remove this `push` section entirely.
     branches:
-      - 'main'
+      - '2025'
+    paths:
+      - '.devcontainer/renv/**'
+      - '.devcontainer/devcontainer.json'
+      - '.devcontainer/Dockerfile'
   workflow_dispatch:
     inputs:
       branch:
