@@ -1,158 +1,105 @@
-# Compendium of ACS CyTOF T Cells
+# README
 
-## Instructions for setting up
+This repository provides infastructure for the project to deliver STA2005S content.
 
-- **Open in GitHub online dev environment**
-  - Run `github.dev/<organisation_name>/<repo_name>`
-- **Set R version**
-  - Press `Ctrl + Shift + F` to open text search through entire repo
-  - Search for `430` 
-  - Change to desired R version, wherever it appears
-   - Options: `363`, `413`, `423` and `430`
-  - Set R version in `devcontainer.json`:
-    - Open `.devcontainer/devcontainer.json`
-    - Under `features/"ghcr.io/rocker-org/devcontainer-features/r-rig:1"/version`, change the version to desired version
-  - Commit the changes to Git
-- **Change the following references**:
-  - Use `Ctrl + Shift + F` to open text search through entire repo again:
-    - Replace `Comp<old_comp>` with `Comp<new_comp>`
-- **Update repos to clone**:
-  - In the file `repos-to-clone.list`, add GitHub repos to clone (one per line, in `<org_name>/<repo_name>` format)
-  - Add all these repos to the VS Code workspace file `EntireProject.code-workspace`
-    - Use the same format as is already there, just copying down
-- **Create singularity file**
-  - Open in a GitHub Codespace, GitPod workspace or Linux locally
-  - Run `ubuntu/install_apptainer.sh`
-  - Run `ubuntu/build_and_upload_apptainer.sh`, which builds and uploads the apptainer file
+## Contact
 
-## Instructions for running
+For more information, please contact:  
+- Miguel Rodo, miguel.rodo@uct.ac.za
 
-### Initial configuration
+## Links
 
-In all cases, make sure that you have the environment variable `GH_TOKEN` set up to a GitHub token with `repo`, `user` and `workflow` scopes
-from a GitHub account that has access to the following repositories:
+- [URLs to data sources (e.g. OneDrive), GitHub repositories, publications, etc.]
 
-- <org_name>/<repo_name>
+## Details
 
-#### Seting up `GH_TOKEN` environment variable
+[Methods, timeline, team, data sources, software/tools, etc.]
 
-First, you need to create the token (Getting secret) and then you need to make it available in your environment (GitHub Codespaces, GitPod or HPC).
+## Workspace setup
 
-**Getting secret**
+This repository provides infrastructure for a multi-repository R-based research project.
+It can be used both to **set up a containerised development environment** and to **manage a VS Code workspace spanning multiple repositories** — both of which are optional.
 
-- Go to `https://github.com/settings/tokens`
-  - Click `Generate new token`
-  - Click `Generate new token (classic)`
-  - Name the token something meaningful
-  - Select the following scopes:
-    - `repo`
-    - `user`
-    - `workflow`
-  - Click `Generate token`
+<!--
 
-**GitHub Codespaces**: Set up `GH_TOKEN` in the Codespaces settings
+You may use this repository:
 
-- Go to `https://github.com/settings/codespaces`
-- On the right of `Codespaces Secrets`, click `New secret`
-- Name the secret `GH_TOKEN`
-- Paste the token into the `Value` field
-  - Get this
+- as part of an existing project, to quickly reproduce or continue analysis, or  
+- as a starting point for new projects with similar infrastructure needs.
 
-### GitPod
+!-->
 
-- Open `https://gitpod.io/#https://github.com/SATVILab/Comp23RodoSTA2005S`
-  - Wait for set-up to complete (including post-image creation commands)
-- Open a terminal:
-  - *Authenticate to GitHub*: Run `gh auth login`
-    - Follow instructions
-  - *Download container image*: Run `mkdir -p sif && gh release download --repo SATVILab/Comp23RodoSTA2005S r430 --pattern sif --dir sif --skip-existing`
-  - *Open VS Code using a remote tunnel into container*: Run `apptainer exec sif/r430.sif code tunnel --accept-server-license-terms`
-    - Follow instructions, up until you then have a browser tab open to a VS Code instance
-- Switch to VS Code instance:
-  - Open a VS Code workspace:
-    - Press `Ctrl + Shift + P`
-    - Choose `File: Open Workspace from File...`
-    - Open workspace with repos of interest:
-      - `EntireProject.code-workspace`: Contains all repos
+### Multi-repository workflow
 
-### GitHub Codespaces
+This repo supports easy setup of a multi-repository workspace on Linux, macOS or Windows.
 
-- *Open Codespace*:
-  - Go to `https://github.com/SATVILab/Comp23RodoSTA2005S`
-  - Click green `Code` button
-  - Click green `Create codespace on main` button
-  - Wait for set-up
-- Switch to VS Code instance:
-  - Open a VS Code workspace:
-    - Press `Ctrl + Shift + P`
-    - Choose `File: Open Workspace from File...`
-    - Open workspace with repos of interest:
-      - `EntireProject.code-workspace`: Contains all repos
+1. **Specify repositories**  
+   Edit `repos.list` in the root. See its header for format details.
 
-### HPC
+2. **Clone repositories**  
+   ```bash
+   scripts/clone-repos.sh
+   ```
 
-- Open *terminal*: Open an interactive terminal on a compute node
-- *Ensure that `apptainer` is loaded*
-  - Run `apptainer --version` to check
-    - If it's not, then you'll need to load it somehow (e.g. `module load apptainer`). Ask your system administrator (or hopefully-more-knowledgeable colleague) if you're not sure how to do this.
-- *Clone this repository*:
-  - Navigate to directory where you want to clone this repo and all other project repos.
-    - Note that there are many project repos, so it would be good to do this in its own directory.
-      - We create `ProjectACSCyTOFTCells` folder for this purpose.
-    - Inside that folder, run `git clone https://github.com/SATVILab/Comp23RodoSTA2005S.git`
-- *Open terminal inside repo*:
-  - Run `cd <path/to/Comp23RodoSTA2005S>`
-- *Download the container image*:
-  - Using a terminal: Run `.scripts/hpc/download_apptainer.sh`.
-  - Using GUI: Go to `https://github.com/SATVILab/Comp23RodoSTA2005S/releases/tag/r430` and download `r430.sif` to `sif` folder (run `mkdir -p sif` to create folder first).
-- *Open VS Code using a remote tunnel into container*: Run `apptainer exec sif/r430.sif code tunnel --accept-server-license-terms`
-    - Follow instructions, up until you then have a browser tab open to a VS Code instance
-- Switch to VS Code instance:
-  - Open a VS Code workspace:
-    - Press `Ctrl + Shift + P`
-    - Choose `File: Open Workspace from File...`
-    - Open workspace with repos of interest:
-      - `EntireProject.code-workspace`: Contains all repos
+  * Works on any OS with Git.
+  * On Windows, run in Git Bash (from Git for Windows).
 
-### Local (Linux)
+3. **Create a VS Code workspace (optional)**
 
-This is if you have Linux set up locally (perhaps using Windows Subsystem for Linux).
+   ```bash
+   scripts/vscode-workspace-add.sh
+   ```
 
-In this case, the instructions are basically the same as for the HPC.
+   * Requires any version of `Python` or the `jq` utility.
+   * Then in VS Code: **File → Open Workspace from File…** → select `entire-project.code-workspace`.
 
-- *Open a terminal*
-- *Clone this repository*:
-  - Navigate to directory where you want to clone this repo and all other project repos.
-    - Note that there are many project repos, so it would be good to do this in its own directory.
-      - We create `ProjectACSCyTOFTCells` folder for this purpose.
-    - Inside that folder, run `git clone https://github.com/SATVILab/Comp23RodoSTA2005S.git`
-- *Ensure that `apptainer` is installed*
-  - Run `apptainer --version` to check
-    - If it's not, then you can run `./scripts/hpc/install_apptainer.sh` to install apptainer.
-- *Open terminal inside repo*:
-  - Run `cd <path/to/Comp23RodoSTA2005S>`
-- *Download the container image*:
-  - Using a terminal: Run `.scripts/hpc/download_apptainer.sh`.
-  - Using GUI (if terminal doesn't work): Go to `https://github.com/SATVILab/Comp23RodoSTA2005S/releases/tag/r430` and download `r430.sif` to `sif` folder (run `mkdir -p sif` to create folder first).
-- *Open VS Code using a remote tunnel into container*: Run `apptainer exec sif/r430.sif code tunnel --accept-server-license-terms`
-    - Follow instructions, up until you then have a browser tab open to a VS Code instance
-- Switch to VS Code instance:
-  - Open a VS Code workspace:
-    - Press `Ctrl + Shift + P`
-    - Choose `File: Open Workspace from File...`
-    - Open workspace with repos of interest:
-      - `EntireProject.code-workspace`: Contains all repos
+### R development container
 
-### Local (other)
+A ready-to-use devcontainer config is provided under `.devcontainer/devcontainer.json`.
 
-In this case, this repository is not particularly useful to you so you might as well just clone individual repos and open them inside VS Code/RStudio.
-- Well, this is not entirely true - you could clone this repo and then use the workspace files it provides. But that's not amazingly useful.
+#### Base image
 
-So, for this approach:
+* By default, the Dockerfile starts with
 
-- Create a project folder to contain all the repos.
-- Clone all the repos to that project folder. You can use this script:
+  ```dockerfile
+  FROM bioconductor/bioconductor_docker:RELEASE_3_20
+  ```
 
+  which gives you pre-built Bioconductor binaries.
+* To pick another Bioconductor release, change that `FROM` line (e.g. `RELEASE_3_19` instead of `RELEASE_3_20`).
+* To use a non-Bioconductor base (e.g. `rocker/r-verse:4.4`), update the same `FROM` line accordingly.
+
+#### Features
+
+The devcontainer includes:
+
+* **Quarto** (with TinyTeX)
+* Common Ubuntu packages for R/data science
+* **radian**, a modern R console
+* A **repos** feature to clone repos specified in `repos.list`. Important primarily for GitHub Codespaces, as it overrides default `Codespaces` Git authentication. Ensure that the environment variable `GH_TOKEN` is available as a Codespaces secret, and that it has permissions to clone the specified repositories.
+* A **config-r** feature that pre-installs packages from any `.devcontainer/renv/<dir>/renv.lock` into the global cache for faster container starts once built. Multiple `<dir>`s can be specified to install packages from multiple lockfiles.
+
+#### Automated builds
+
+A GitHub Actions workflow (`.github/workflows/devcontainer-build.yml`) will:
+
+* Build the container on each push to `main` (or via manual dispatch).
+* Push images to GitHub Container Registry (`ghcr.io`) tagged by repo and branch.
+* Generate `.devcontainer/prebuild/devcontainer.json` pointing to the latest pre-built image, so VS Code can open almost instantly.
+
+To disable automatic builds, remove or comment out the `on.push` section in that workflow file.
+
+#### Dotfiles
+
+If running within a container, then typically additional configuration is convenient.
+For example, `radian` on Linux works poorly unless the option `auto_match` is set to `false`.
+
+A convenient way to say this is up is to use the `SATVILab/dotfiles` repository.
+After opening this repository in a container, run the following command:
+
+```bash
+git clone https://github.com/SATVILab/dotfiles.git "$HOME"/dotfiles
+"$HOME"/dotfiles/install-env.sh dev
 ```
-git clone https://github.com/SATVILab/DataTidyACSClinical.git
-```
+
+See `https://github.dev/SATVILab/dotfiles` for more information on the dotfiles repository.
