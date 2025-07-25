@@ -1,32 +1,60 @@
 #!/usr/bin/env bash
 
 # strict mode
-set -o errexit
-set -o nounset
-set -o pipefail
+set -o errexit   # bail on error
+set -o nounset   # undefined var → error
+set -o pipefail  # catch failures in pipes
+IFS=$'\n\t'      # only split on newline and tab
 
-# only split on newline and tab
-IFS=$'\n\t'
+# 0. Ensure Rscript exists
+if ! command -v Rscript >/dev/null 2>&1; then
+  echo "❌ Rscript not found. Please install Rscript." >&2
+  exit 1
+fi
+# 4. Parse all the "path" entries via jq
+if ! command -v jq >/dev/null 2>&1; then
+  echo "❌ jq not found. Please install jq to parse the workspace file." >&2
+  exit 1
+fi
 
-# 1. Where the user ran this script from:
+# 1. Where the user ran this script
 INVOKE_DIR="$PWD"
 
-# 2. Where this script file lives (in case you ever need it)
+# 2. Where this script lives (to locate the workspace file)
 SCRIPT_DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1 && pwd)"
 
-# (Optional) If you need to install renv in a project one‑level up from the script:
-# PROJECT_ROOT="$SCRIPT_DIR/.."
+# 3. Locate the workspace JSON (one level up)
+WS1="$SCRIPT_DIR/../entire-project.code-workspace"
+WS2="$SCRIPT_DIR/../EntireProject.code-workspace"
+if   [ -f "$WS1" ]; then WORKSPACE_FILE="$WS1"
+elif [ -f "$WS2" ]; then WORKSPACE_FILE="$WS2"
+else
+  echo "❌ No .code‑workspace file found in $(dirname "$SCRIPT_DIR")" >&2
+  exit 1
+fi
 
+# 4. Parse all the "path" entries into a Bash array
+FOLDERS=()
+while IFS= read -r folder; do
+  FOLDERS+=("$folder")
+done < <(jq -r '.folders[].path' "$WORKSPACE_FILE")
+
+# 5. Your provided helpers, tweaked to operate per‑folder
 restore_renv() {
-  echo "🔄  Found renv.lock – restoring with renv…"
-  # …but from here on *we stick* in $INVOKE_DIR
-  cd "$INVOKE_DIR/.." || exit 1
+  local rel="$1"
+  local tgt="$INVOKE_DIR/$rel"
+
+  echo "🔄 [$rel] Found renv.lock – restoring with renv…"
+  # run everything *inside* that folder
+  cd "$tgt" || { echo "⚠️ cannot cd to $tgt"; return 1; }
+
   echo "⚙️  Checking for renv…"
+  cd ".." || exit 1
   Rscript -e '
     if (!requireNamespace("renv", quietly=TRUE))
       install.packages("renv", repos="https://cloud.r-project.org")
   '
-  cd "$INVOKE_DIR" || exit 1
+  cd "$tgt" || exit 1
 
   echo "⚙️  Checking for gitcreds…"
   Rscript -e '
@@ -40,32 +68,46 @@ restore_renv() {
   echo "🔄  Updating & restoring project via UtilsProjrMR…"
   Rscript -e 'UtilsProjrMR::projr_renv_restore_and_update()'
 
-  echo "✅  All done from: $INVOKE_DIR"
+  echo "✅ [$rel] Done."
+  # back to where we started
+  cd "$INVOKE_DIR" || exit 1
 }
 
 restore_pak_desc() {
-  echo "🔄  Found DESCRIPTION – installing via pak…"
+  local rel="$1"
+  local tgt="$INVOKE_DIR/$rel"
+
+  echo "🔄 [$rel] Found DESCRIPTION – installing via pak…"
+  cd "$tgt" || { echo "⚠️ cannot cd to $tgt"; return 1; }
+
   Rscript -e '
     if (!requireNamespace("pak", quietly=TRUE))
       install.packages("pak", repos="https://cloud.r-project.org");
-    # install deps of the local package, then the package itself
     pak::local_install_dev_deps()
-  ' || exit 1
+  ' || return 1
+
+  echo "✅ [$rel] pak install done."
+  cd "$INVOKE_DIR" || exit 1
 }
 
-main() {
-  # 1. renv-based restore
-  if [ -f renv.lock ]; then
-    restore_renv
-  else
-    echo "ℹ️  No renv.lock in $INVOKE_DIR"
-    if [ -f DESCRIPTION ]; then
-      restore_pak_desc
-    else
-      echo "❌  No DESCRIPTION either – cannot determine what to install."
-      exit 1
-    fi
+# 6. Loop over each folder and try restoring
+for rel in "${FOLDERS[@]}"; do
+  TARGET="$INVOKE_DIR/$rel"
+
+  if [ ! -d "$TARGET" ]; then
+    echo "⚠️ [$rel] Folder not found – skipping"
+    continue
   fi
-}
 
-main "$@"
+  if [ -f "$TARGET/renv.lock" ]; then
+    restore_renv "$rel" \
+      || echo "⚠️ [$rel] renv restore failed – moving on"
+  elif [ -f "$TARGET/DESCRIPTION" ]; then
+    restore_pak_desc "$rel" \
+      || echo "⚠️ [$rel] pak install failed – moving on"
+  else
+    echo "ℹ️ [$rel] No renv.lock or DESCRIPTION – skipping"
+  fi
+done
+
+echo "✅ All done across all folders!"
