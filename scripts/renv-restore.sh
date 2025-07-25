@@ -29,7 +29,7 @@ WS2="$SCRIPT_DIR/../EntireProject.code-workspace"
 if   [ -f "$WS1" ]; then WORKSPACE_FILE="$WS1"
 elif [ -f "$WS2" ]; then WORKSPACE_FILE="$WS2"
 else
-  echo "❌ No .code‑workspace file found in $(dirname "$SCRIPT_DIR")" >&2
+  echo "❌ No .code‑workspace file found in $(dirname \"\$SCRIPT_DIR\")" >&2
   exit 1
 fi
 
