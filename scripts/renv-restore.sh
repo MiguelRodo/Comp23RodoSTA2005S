@@ -56,6 +56,9 @@ restore_renv() {
   '
   cd "$tgt" || exit 1
 
+  echo "⚙️ Upgrade renv…"
+  Rscript -e 'renv::upgrade()'
+
   echo "⚙️  Checking for gitcreds…"
   Rscript -e '
     if (!requireNamespace("gitcreds", quietly=TRUE))
